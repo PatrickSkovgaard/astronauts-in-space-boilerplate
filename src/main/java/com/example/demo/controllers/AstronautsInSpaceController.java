@@ -17,14 +17,20 @@ import java.net.URL;
 
 @Controller
 public class AstronautsInSpaceController {
+    public AstronautsInSpace astronautsInSpaceData;
+
+    public AstronautsInSpaceController() throws IOException {
+        URL catURL= new URL("http://api.open-notify.org/astros.json");
+        BufferedReader inputFromCatUrl = new BufferedReader(new InputStreamReader(catURL.openStream()));
+        this.astronautsInSpaceData = new Gson().fromJson(inputFromCatUrl, AstronautsInSpace.class);
+
+    }
+
     @GetMapping("/")
     @ResponseBody
     public String renderAstronauts() throws IOException {
-        URL catURL= new URL("http://api.open-notify.org/astros.json");
-        BufferedReader inputFromCatUrl = new BufferedReader(new InputStreamReader(catURL.openStream()));
-        AstronautsInSpace astronautsInSpaceData = new Gson().fromJson(inputFromCatUrl, AstronautsInSpace.class);
-        // astronautsInSpaceData is what you will be working with!
-        System.out.println(astronautsInSpaceData);
+        // this.astronautsInSpaceData is what you will be working with!
+        System.out.println(this.astronautsInSpaceData);
 
         return "stuff";
     }
