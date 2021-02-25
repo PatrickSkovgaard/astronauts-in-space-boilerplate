@@ -14,23 +14,29 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
 @Controller
 public class AstronautsInSpaceController {
     public AstronautsInSpace astronautsInSpaceData;
 
     public AstronautsInSpaceController() throws IOException {
-        URL catURL= new URL("http://api.open-notify.org/astros.json");
-        BufferedReader inputFromCatUrl = new BufferedReader(new InputStreamReader(catURL.openStream()));
-        this.astronautsInSpaceData = new Gson().fromJson(inputFromCatUrl, AstronautsInSpace.class);
-
+        URL astronautsURL= new URL("http://api.open-notify.org/astros.json");
+        BufferedReader inputFromAstronautsUrl = new BufferedReader(new InputStreamReader(astronautsURL.openStream()));
+        this.astronautsInSpaceData = new Gson().fromJson(inputFromAstronautsUrl, AstronautsInSpace.class);
     }
 
     @GetMapping("/")
     @ResponseBody
     public String renderAstronauts() throws IOException {
-        // this.astronautsInSpaceData is what you will be working with!
-        System.out.println(this.astronautsInSpaceData);
+
+        Integer numberOfPeopleinSpace = this.astronautsInSpaceData.number;
+
+        // Investigate what properties can be found on the individual Astronaut
+        ArrayList<Astronaut> astronautsInSpace = this.astronautsInSpaceData.people;
+
+        System.out.println(numberOfPeopleinSpace);
+        System.out.println(astronautsInSpace);
 
         return "stuff";
     }
