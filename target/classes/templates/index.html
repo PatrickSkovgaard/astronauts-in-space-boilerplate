@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Astronauts</title>
+</head>
+<body>
+<header>
+<h1>People in space right now:</h1>
+<h1 th:text="${astronautsNumber}"></h1>
+</header>
+<ul th:each="astronaut : ${astronauts}">
+    <li th:text="${astronaut}"></li>
+</ul>
+<footer>ISS</footer>
+</body>
+</html>
